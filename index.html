@@ -12,11 +12,11 @@
     
     <div class="header-container">
         <header class="wrapper clearfix">
-            <h1 class="title">Survey Request Form</h1>
             <nav>
-                <ul>
+                <img class="header_pic" >
                     <li><a href="#">PROJECTS</a></li>
                     <li><a href="#">VALIDATION</a></li>
+                    <li id="image"><img src="img/haag_7_print.png" alt="Haag Logo"></li>
                     <li><a href="#">INVOICING</a></li>
                     <li><a href="#">TIME</a></li>
                 </ul>
@@ -24,116 +24,119 @@
         </header>
     </div>
     
-    <div class="container">
-        <form action="index.html" method="post"> 
-            <fieldset>
-                <label for="projectName">Project Name:</label>
-                <input type="text" id="projectName" name="project_name">
-                <label for="projectSRID">SRID:</label>
-                <input type="number" id="projectSRID" name="project_srid">
+    <div class="main-container">
+        <div class="main wrapper clearfix">
+            <form action="index.html" method="post"> 
+                <fieldset>
+                    <label for="projectName">Project Name:</label>
+                    <input type="text" id="projectName" name="project_name"><br>
 
-                <label for="projectBillNumType">Bill Number Type:</label>
-                <select id="projectBillNumType" name="project_bill_num_type">
-                    <option style="display:none"></option>
-                    <option value="afe">AFE</option>
-                    <option value="cost_center">Cost Center</option>
-                    <option value="work_order">Work Order</option>
-                    <option value="other">Other</option>
-                </select>
+                    <label for="projectSRID">SRID:</label>
+                    <input type="number" id="projectSRID" name="project_srid"><br>
 
-                <label for="projectBillNumValue">Bill Number Value:</label>
-                <input type="text" id="projectBillNumValue" name="project_bill_num_value">
-
-                <label for="projectVendor">Vendor:</label>
-                <select id="projectVendor" name="project_vendor">
-                    <option style="display:none"></option>
-                    <option value="609">609 Consulting LLC</option>
-                    <option value="acklam">Acklam Inc</option>
-                    <option value="apex">Apex Companies LLC</option>
-                    <option value="arcadis">Arcadis US Inc</option>
-                    <option value="baseline">Baseline Engineering Corporation</option>
-                    <option value="fenstermaker">CH Fesntermaker & Associates</option>
-                    <option value="crafton">Crafton Tull Surveying</option>
-                    <option value="datawing">Datawing</option>
-                    <option value="drgriffin">DR Griffin & Associates Inc</option>
-                    <option value="els">ELS Surveying & Mapping Inc</option>
-                    <option value="hga">Hungt Guillot & Associates LLC</option>
-                    <option value="internal">Internal Data Collector</option>
-                    <option value="king">King Surveyors LLC</option>
-                    <option value="lsi">Land Surveying Incorporated</option>
-                    <option value="lw">LW Survey Co</option>
-                    <option value="mei">Maverick Engineering Inc</option>
-                    <option value="mph">Morris P Herbert Inc</option>
-                    <option value="oceaneering">Oceaneering Intl Inc</option>
-                    <option value="outlaw">Outlaw Engineering Inc</option>
-                    <option value="pfs">Petroleum Field Serivces LLC</option>
-                    <option value="rsquared">R Squared Global LLC</option>
-                    <option value="sam">Surveying and Mapping LLC</option>
-                    <option value="swca">SWCA Environmental Consultants</option>
-                    <option value="topo">Topographic Land Surveyors</option>
-                    <option value="tgs">Transglobal Services LLC</option>
-                    <option value="trc">TRC Pipeline Services LLC</option>
-                    <option value="trendsetter">Trendsetter Construction Inc</option>
-                    <option value="twodot">Two Dot Consulting LLC</option>
-                    <option value="uels">UELS LLC</option>
-                    <option value="unknown">Unknown</option>
-                    <option value="west">West Company of Midland LLC</option>
-                    <option value="whitenton">Whitenton Group Inc</option>
-                    <option value="wood">Wood Group PLS</option>
-                    <option value="wwc">WWC Engineering</option>
-                    </select>
-
-                <label for="projectDateReq">Date Requested:</label>
-                <input type="date" id="projectDateReq" name="project_date_req">
-
-                <label for="projectAssetArea">Asset Area:</label>
-                <select id="asset" name="project_asset_area">
-                    <option style="display:none"></option>
-                    <option value="bossier">Bossier</option>
-                    <option value="buffalo_rose">Buffalo Rose</option>
-                    <option value="east_texas">East Texas</option>
-                    <option value="delaware_basin">Delaware Basin</option>
-                    <option value="dew_freestone">Dew/Freestone</option>
-                    <option value="east_chalk">East Chalk</option>
-                    <option value="ggrb">Greater Green River Basin</option>
-                    <option value="gnb">Greater Natural Buttes</option>
-                    <option value="marcellus">Marcellus</option>
-                    <option value="maverick">Maverick</option>
-                    <option value="montana">Montana</option>
-                    <option value="eaglebine">Northstars/Eaglebine</option>
-                    <option value="prb">Powder River Basin</option>
-                    <option value="rockies_eor">Rockies EOR</option>
-                    <option value="wattenberg">Wattenberg</option>
-                    <option value="willow_ridge">Willow Ridge</option>
-                    <option value="north_la">North Louisiana</option>
-                </select>
-
-                <label for="projectType">Project Type:</label>
-                <select id="type" name="project_type">
+                    <label for="projectBillNumType">Bill Number Type:</label>
+                    <select id="projectBillNumType" name="project_bill_num_type">
                         <option style="display:none"></option>
-                        <option value="access_road">Access Road Map</option>
-                        <option value="boundary">Boundary Survey</option>
-                        <option value="clearance">Clearance Map</option>
-                        <option value="electrical_asbuilt">Electrical As-Built</option>
-                        <option value="electrical_prelim">Electrical Preliminary</option>
-                        <option value="facility_asbuilt">Facility Site As-Built</option>
-                        <option value="facility_prelim">Facility Site Preliminary</option>
-                        <option value="general">General Map</option>
-                        <option value="pipeline_closed_asbuilt">Pipeline Closed Ditch As-Built</option>
-                        <option value="pipeline_open_asbuilt">Pipeline Open Ditch As-Built</option>
-                        <option value="pipeline_prelim">Pipeline Preliminary</option>
-                        <option value="radius">Radius Map</option>
-                        <option value="row">Right of Way Easement</option>
-                        <option value="topo">Topographical Map</option>
-                        <option value="water_well">Water Well</option>
-                        <option value="well_asbuilt">Well As-Built</option>
-                        <option value="well_asdrilled">Well As-Drilled</option>
-                        <option value="well_location">Well Location Document</option>
-                        <option value="well_design">Well Pad Design Summary</option>
-                </select>
-            </fieldset>    
-            <button type="submit">Sign Up</button>
-        </form>
+                        <option value="afe">AFE</option>
+                        <option value="cost_center">Cost Center</option>
+                        <option value="work_order">Work Order</option>
+                        <option value="other">Other</option>
+                    </select><br>
+
+                    <label for="projectBillNumValue">Bill Number Value:</label>
+                    <input type="text" id="projectBillNumValue" name="project_bill_num_value"><br>
+
+                    <label for="projectVendor">Vendor:</label>
+                    <select id="projectVendor" name="project_vendor">
+                        <option style="display:none"></option>
+                        <option value="609">609 Consulting LLC</option>
+                        <option value="acklam">Acklam Inc</option>
+                        <option value="apex">Apex Companies LLC</option>
+                        <option value="arcadis">Arcadis US Inc</option>
+                        <option value="baseline">Baseline Engineering Corporation</option>
+                        <option value="fenstermaker">CH Fesntermaker & Associates</option>
+                        <option value="crafton">Crafton Tull Surveying</option>
+                        <option value="datawing">Datawing</option>
+                        <option value="drgriffin">DR Griffin & Associates Inc</option>
+                        <option value="els">ELS Surveying & Mapping Inc</option>
+                        <option value="hga">Hungt Guillot & Associates LLC</option>
+                        <option value="internal">Internal Data Collector</option>
+                        <option value="king">King Surveyors LLC</option>
+                        <option value="lsi">Land Surveying Incorporated</option>
+                        <option value="lw">LW Survey Co</option>
+                        <option value="mei">Maverick Engineering Inc</option>
+                        <option value="mph">Morris P Herbert Inc</option>
+                        <option value="oceaneering">Oceaneering Intl Inc</option>
+                        <option value="outlaw">Outlaw Engineering Inc</option>
+                        <option value="pfs">Petroleum Field Serivces LLC</option>
+                        <option value="rsquared">R Squared Global LLC</option>
+                        <option value="sam">Surveying and Mapping LLC</option>
+                        <option value="swca">SWCA Environmental Consultants</option>
+                        <option value="topo">Topographic Land Surveyors</option>
+                        <option value="tgs">Transglobal Services LLC</option>
+                        <option value="trc">TRC Pipeline Services LLC</option>
+                        <option value="trendsetter">Trendsetter Construction Inc</option>
+                        <option value="twodot">Two Dot Consulting LLC</option>
+                        <option value="uels">UELS LLC</option>
+                        <option value="unknown">Unknown</option>
+                        <option value="west">West Company of Midland LLC</option>
+                        <option value="whitenton">Whitenton Group Inc</option>
+                        <option value="wood">Wood Group PLS</option>
+                        <option value="wwc">WWC Engineering</option>
+                        </select><br>
+
+                    <label for="projectDateReq">Date Requested:</label>
+                    <input type="date" id="projectDateReq" name="project_date_req"><br>
+
+                    <label for="projectAssetArea">Asset Area:</label>
+                    <select id="asset" name="project_asset_area">
+                        <option style="display:none"></option>
+                        <option value="bossier">Bossier</option>
+                        <option value="buffalo_rose">Buffalo Rose</option>
+                        <option value="east_texas">East Texas</option>
+                        <option value="delaware_basin">Delaware Basin</option>
+                        <option value="dew_freestone">Dew/Freestone</option>
+                        <option value="east_chalk">East Chalk</option>
+                        <option value="ggrb">Greater Green River Basin</option>
+                        <option value="gnb">Greater Natural Buttes</option>
+                        <option value="marcellus">Marcellus</option>
+                        <option value="maverick">Maverick</option>
+                        <option value="montana">Montana</option>
+                        <option value="eaglebine">Northstars/Eaglebine</option>
+                        <option value="prb">Powder River Basin</option>
+                        <option value="rockies_eor">Rockies EOR</option>
+                        <option value="wattenberg">Wattenberg</option>
+                        <option value="willow_ridge">Willow Ridge</option>
+                        <option value="north_la">North Louisiana</option>
+                    </select><br>
+
+                    <label for="projectType">Project Type:</label>
+                    <select id="type" name="project_type">
+                            <option style="display:none"></option>
+                            <option value="access_road">Access Road Map</option>
+                            <option value="boundary">Boundary Survey</option>
+                            <option value="clearance">Clearance Map</option>
+                            <option value="electrical_asbuilt">Electrical As-Built</option>
+                            <option value="electrical_prelim">Electrical Preliminary</option>
+                            <option value="facility_asbuilt">Facility Site As-Built</option>
+                            <option value="facility_prelim">Facility Site Preliminary</option>
+                            <option value="general">General Map</option>
+                            <option value="pipeline_closed_asbuilt">Pipeline Closed Ditch As-Built</option>
+                            <option value="pipeline_open_asbuilt">Pipeline Open Ditch As-Built</option>
+                            <option value="pipeline_prelim">Pipeline Preliminary</option>
+                            <option value="radius">Radius Map</option>
+                            <option value="row">Right of Way Easement</option>
+                            <option value="topo">Topographical Map</option>
+                            <option value="water_well">Water Well</option>
+                            <option value="well_asbuilt">Well As-Built</option>
+                            <option value="well_asdrilled">Well As-Drilled</option>
+                            <option value="well_location">Well Location Document</option>
+                            <option value="well_design">Well Pad Design Summary</option>
+                    </select><br>
+                </fieldset>    
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
     </div>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
