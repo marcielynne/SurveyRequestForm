@@ -1,0 +1,193 @@
+
+body {
+  justify-content: center;
+  align-items: center;
+
+}
+
+.main-nav {
+  background: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 5px 55px 50px -50px #b6b6b6; 
+} 
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.nav a,
+.nav img {
+  color: rgb(141, 139, 143);
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.8em;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 100;
+}
+
+.nav a:hover {
+  color: black;
+}
+
+.logo {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: rgb(141, 139, 143);
+  text-decoration: none;
+  font-size: 1em;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 30px 50px 0 50px;
+  border-style: none;
+}
+
+input,
+select {
+  border: 1px solid rgb(141, 139, 143);
+  height: 25px;
+  width: 400px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  color: #333333;
+}
+
+/* Remove arrows from number input box */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button,
+input[type=date]::-webkit-inner-spin-button, 
+input[type=date]::-webkit-outer-spin-button {
+  -webkit-appearance: none; 
+  margin: 0;
+}
+
+button {
+  display: inline-block;
+  color: #444444;
+  background: #F3F3F3;
+  border: 1px #DADADA solid;
+  padding: 5px 10px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 1em;
+  outline: none;
+  width: 100px;
+}
+
+button:hover {
+  border: 1px #C6C6C6 solid;
+  box-shadow: 1px 1px 1px #EAEAEA;
+  color: #333333;
+  background: #F7F7F7;
+}
+
+button:active {
+  box-shadow: inset 1px 1px 1px #DFDFDF;   
+}
+
+
+
+
+
+/**********************************************************************************************
+/*MEDIA QUERIES
+/**********************************************************************************************
+
+/* Media query for screen size less than 400px */
+@media only screen and (max-width: 400px) {
+  .logo {
+      display: none;
+  }
+
+  .main-nav {
+      padding: 5px 5px;
+      border-radius: 5px;
+      box-shadow: 5px 15px 15px -15px #b6b6b6;
+  }
+
+  .nav li:not(.logo) {
+      margin-left: 3%;
+      margin-right: 3%;
+  }
+
+  .nav {
+      flex-direction: column;
+      align-items: center;
+  }
+  .nav a {
+      font-size: 1.2em;
+  }
+
+}
+
+/* Media query for screen size less than 679px */
+@media only screen and (max-width: 679px){
+  .logo {
+      display: none;
+  }
+
+  .main-nav {
+      padding: 5px 5px;
+      border-radius: 5px;
+      box-shadow: 5px 15px 15px -15px #b6b6b6;
+  }
+
+  .nav li:not(.logo) {
+      margin-left: 3%;
+      margin-right: 3%;
+  }
+
+  .nav {
+      flex-wrap: nowrap;
+  }
+  .nav a {
+      font-size: 1.2em;
+  }
+
+}
+
+/* Media query for screen size less than 768px */
+@media only screen and (min-width: 768px),
+   only screen and (min-width: 679px) {
+  .logo {
+      display: none;
+  }
+
+  .main-nav {
+      padding: 5px 5px;
+      border-radius: 5px;
+      box-shadow: 5px 15px 15px -15px #b6b6b6;
+  }
+
+  .nav li:not(.logo) {
+      margin-left: 4%;
+      margin-right: 4%;
+  }
+}
+
+/* Media query for screen size less than 1140px */
+@media only screen and (min-width: 1140px) {
+  .logo {
+      display: flex;
+  }
+  
+  .nav li:not(.logo) {
+      margin-left: 4%;
+      margin-right: 4%;
+      margin-top: 30px;
+  }
+}
