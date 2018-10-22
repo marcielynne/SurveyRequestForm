@@ -7,27 +7,27 @@
         <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/main.css">
     </head>
-    <body>
+    <body id="index">
         <div class="main-nav">
             <ul class="nav">
-                <li class="item-1 item"><a href="#projects" class="active">Projects</a></li>
-                <li class="item-2 item"><a href="#Validation">Validation</a></li>
-                <li class="logo"><img src="img/haag_7_print.png" alt="Company Logo" id="image"></li>
-                <li class="item-3 item"><a href="#invoicing">Invoicing</a></li>
-                <li class="item-4 item"><a href="#time">Time</a></li>
+                <li class="item-1 item"><a href="index.html">Projects</a></li>
+                <li class="item-2 item"><a href="validation.html">Validation</a></li>
+                <li class="logo"><a href="index.html"></a><img src="img/haag_7_print.png" alt="Company Logo" id="image"></li>
+                <li class="item-3 item"><a href="invoicing.html">Invoicing</a></li>
+                <li class="item-4 item"><a href="time.html">Time</a></li>
             </ul>
         </div>
 
-        <div class="main-container">
-            <div class="main wrapper clearfix">
-                <form action="index.html" method="post"> 
-                    <fieldset>
+        <div class="main-container-1">
+            <form id="fieldset" method="POST" action="index.html" onsubmit="return false;"> 
+                <div class="overall-flex">                   
+                    <div class="form-flex">
                         <label for="projectName">Project Name:</label>
                         <input type="text" id="projectName" name="project_name"><br>
-    
+
                         <label for="projectSRID">SRID:</label>
                         <input type="number" id="projectSRID" name="project_srid"><br>
-    
+
                         <label for="projectBillNumType">Bill Number Type:</label>
                         <select id="projectBillNumType" name="project_bill_num_type">
                             <option style="display:none"></option>
@@ -36,10 +36,10 @@
                             <option value="work_order">Work Order</option>
                             <option value="other">Other</option>
                         </select><br>
-    
+
                         <label for="projectBillNumValue">Bill Number Value:</label>
                         <input type="text" id="projectBillNumValue" name="project_bill_num_value"><br>
-    
+
                         <label for="projectVendor">Vendor:</label>
                         <select id="projectVendor" name="project_vendor">
                             <option style="display:none"></option>
@@ -78,12 +78,12 @@
                             <option value="wood">Wood Group PLS</option>
                             <option value="wwc">WWC Engineering</option>
                             </select><br>
-    
+
                         <label for="projectDateReq">Date Requested:</label>
                         <input type="date" id="projectDateReq" name="project_date_req"><br>
-    
+
                         <label for="projectAssetArea">Asset Area:</label>
-                        <select id="asset" name="project_asset_area">
+                        <select id="projectAssetArea" name="project_asset_area">
                             <option style="display:none"></option>
                             <option value="bossier">Bossier</option>
                             <option value="buffalo_rose">Buffalo Rose</option>
@@ -103,9 +103,9 @@
                             <option value="willow_ridge">Willow Ridge</option>
                             <option value="north_la">North Louisiana</option>
                         </select><br>
-    
+
                         <label for="projectType">Project Type:</label>
-                        <select id="type" name="project_type">
+                        <select id="projectType" name="project_type">
                                 <option style="display:none"></option>
                                 <option value="access_road">Access Road Map</option>
                                 <option value="boundary">Boundary Survey</option>
@@ -127,16 +127,36 @@
                                 <option value="well_location">Well Location Document</option>
                                 <option value="well_design">Well Pad Design Summary</option>
                         </select><br>
-                        <button class="button" type="submit">Submit</button>
-                        <button class="button" type="clear">Clear</button> 
-                    </fieldset>   
-                     
-                </form>
-            </div>
+                        
+                        <button class="button" id="btnSubmit" type="submit">Submit</button>
+
+                    </div>
+                
+                    <div class="search-display-flex">
+                        <label for="searchType">Search Type:</label>
+                        <select id="searchType" name="search_value">
+                            <option style="display:none"></option>
+                            <option value="bill_num">Billing Number</option>
+                            <option value="project_name">Project Name</option>
+                            <option value="srid">SRID</option>
+                        </select><br>
+
+                        <label for="searchValue">Search Value:</label>
+                        <input type="text" id="searchValue" name="search_value"><br>
+
+                        <button class="button" id="btnSearch" type="button">Search</button><br><br>
+                        
+                        <table>
+                            <tbody id="tbody"></tbody>
+                        </table>
+
+                        <div id="display"></div>
+
+                    </div>
+                
+                </div>  
+            </form>
         </div>
-
-
-
 
         <script src="js/java.js"></script>
     </body>
