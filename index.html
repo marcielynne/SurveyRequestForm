@@ -31,7 +31,7 @@
                         <label for="projectBillNumType">Bill Number Type:</label>
                         <select id="projectBillNumType" name="project_bill_num_type">
                             <option style="display:none"></option>
-                            <option value="afe">AFE</option>
+                            <option value="AFE">AFE</option>
                             <option value="cost_center">Cost Center</option>
                             <option value="work_order">Work Order</option>
                             <option value="other">Other</option>
@@ -43,7 +43,7 @@
                         <label for="projectVendor">Vendor:</label>
                         <select id="projectVendor" name="project_vendor">
                             <option style="display:none"></option>
-                            <option value="609">609 Consulting LLC</option>
+                            <option value="609 Consulting LLC">609 Consulting LLC</option>
                             <option value="acklam">Acklam Inc</option>
                             <option value="apex">Apex Companies LLC</option>
                             <option value="arcadis">Arcadis US Inc</option>
@@ -85,7 +85,7 @@
                         <label for="projectAssetArea">Asset Area:</label>
                         <select id="projectAssetArea" name="project_asset_area">
                             <option style="display:none"></option>
-                            <option value="bossier">Bossier</option>
+                            <option value="Bossier">Bossier</option>
                             <option value="buffalo_rose">Buffalo Rose</option>
                             <option value="east_texas">East Texas</option>
                             <option value="delaware_basin">Delaware Basin</option>
@@ -107,7 +107,7 @@
                         <label for="projectType">Project Type:</label>
                         <select id="projectType" name="project_type">
                                 <option style="display:none"></option>
-                                <option value="access_road">Access Road Map</option>
+                                <option value="Access Road Map">Access Road Map</option>
                                 <option value="boundary">Boundary Survey</option>
                                 <option value="clearance">Clearance Map</option>
                                 <option value="electrical_asbuilt">Electrical As-Built</option>
@@ -133,24 +133,18 @@
                     </div>
                 
                     <div class="search-display-flex">
-                        <label for="searchType">Search Type:</label>
-                        <select id="searchType" name="search_value">
-                            <option style="display:none"></option>
-                            <option value="bill_num">Billing Number</option>
-                            <option value="project_name">Project Name</option>
-                            <option value="srid">SRID</option>
-                        </select><br>
-
-                        <label for="searchValue">Search Value:</label>
+                        <label for="searchValue">Search Existing Requests:</label>
                         <input type="text" id="searchValue" name="search_value"><br>
 
                         <button class="button" id="btnSearch" type="button">Search</button><br><br>
                         
                         <table>
+                            <thead id="thead"></thead>
                             <tbody id="tbody"></tbody>
-                        </table>
+                        </table><br>
 
-                        <div id="display"></div>
+                        <button class="button" id="btnClear" type="button">Clear</button><br><br>
+                        
 
                     </div>
                 

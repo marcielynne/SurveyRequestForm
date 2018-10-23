@@ -50,6 +50,11 @@ h1 {
   margin-right: auto;
 }
 
+.form-flex input,
+.search-display-flex input {
+  text-transform: uppercase;
+}
+
 table {
   max-width: 600px;
 }
@@ -60,12 +65,16 @@ td, th {
   padding: 8px;
 }
 
-tr:nth-child(even) {
+table tbody tr:nth-child(odd) {
   background-color: #ddd;
 }
 
-tr:hover:not(.thead) {
+table tbody tr:hover {
   background: lightblue;
+}
+
+#btnClear {
+  display:none;
 }
 
 .overall-flex {
@@ -80,8 +89,8 @@ tr:hover:not(.thead) {
 .form-flex {
   display: flex;
   flex-wrap: wrap;
-padding: 10px 10px;
-flex-direction: column;
+  padding: 10px 10px;
+  flex-direction: column;
   color: rgb(141, 139, 143);
   text-decoration: none;
   font-size: 1em;
