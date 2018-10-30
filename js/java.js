@@ -1,3 +1,5 @@
+var map;
+
 var searchResults = [];
 var surveyRequests = [];
 var request;
@@ -10,14 +12,128 @@ var projectVendorInput = document.getElementById("projectVendor");
 var projectDateReqInput = document.getElementById("projectDateReq");
 var projectAssetAreaInput = document.getElementById("projectAssetArea");
 var projectTypeInput = document.getElementById("projectType");
+var projectLonInput = document.getElementById("projectLon");
+var projectLatInput = document.getElementById("projectLat");
 
 var searchTypeInput = document.getElementById("searchType");
 var searchValueInput = document.getElementById("searchValue");
 
 var tbody = document.getElementById("tbody");
 var thead = document.getElementById("thead");
-var btnDiv = document.getElementById("button-div")
+var btnClear = document.getElementById("btnClear");
 
+
+// BEGINNING OF MAP CODE
+// Import Dojo resources. The order under require should match the order under the first function.
+require([
+    "esri/map",
+    "esri/graphic", 
+    "esri/symbols/SimpleMarkerSymbol",
+    "esri/symbols/SimpleLineSymbol", 
+    "esri/Color", 
+    "esri/geometry/webMercatorUtils",
+    "esri/geometry/Point",
+    "dojo/dom", 
+    "dojo/domReady!"
+  ], function (
+        Map,
+        Graphic, 
+        SimpleMarkerSymbol,
+        SimpleLineSymbol, 
+        Color, 
+        webMercatorUtils,
+        Point,
+        dom
+  ) {
+
+    // Add the map and set the default basemap and zoom.
+    map = new Map("mapDiv", {
+      basemap: "hybrid",
+      center: [-95, 40],
+      zoom: 4
+    });
+
+    // Symbol graphic used when a user clicks on the map and when a user zooms to a project.
+    var symbol = new SimpleMarkerSymbol(
+        SimpleMarkerSymbol.STYLE_CIRCLE,
+        16,
+        new SimpleLineSymbol(
+          SimpleLineSymbol.STYLE_NULL,
+          new Color([255, 0, 0, 0.9]),
+          1
+        ),
+        new Color([255, 0, 0, 1])
+      );
+
+    // When the map is clicked add a point graphic to the map that shows lat/lon. Populate the lat/lon values into the corresponding lat/lon input fields
+    map.on("click", function(evt){
+        var mp = webMercatorUtils.webMercatorToGeographic(evt.mapPoint);
+        map.graphics.clear();
+        map.graphics.add(new Graphic(mp, symbol));
+        map.infoWindow.setContent(
+            "POINT FOR NEW REQUEST:" +
+            "<br>X Lon: " + mp.x.toString() + 
+            ", <br>Y Lat: " + mp.y.toString()
+            );
+        map.infoWindow.show(mp);
+        projectLonInput.value = mp.x.toString();
+        projectLatInput.value = mp.y.toString();
+    });
+
+    // The showCoordinates function adds a point to the map based on the values in the lat/lon input fields. It also zooms to that point.
+    function showCoordinates() {   
+        var lon = projectLonInput.value;
+        var lat = projectLatInput.value;
+        var mp = new Point(lon, lat);  
+        map.centerAndZoom(mp,14);
+        map.graphics.add(new Graphic(mp, symbol));
+        map.infoWindow.setContent(
+            "Project Name: " + projectNameInput.value +
+            "<br>Project SRID: " + projectSRIDInput.value
+            );
+        map.infoWindow.show(mp);
+    }
+     
+    // Call the showCoordinates function above when a user clicks on the resultsTable
+    resultsTable.addEventListener("click", function() {
+        map.graphics.clear();
+        showCoordinates();
+    })
+});
+// END OF MAP CODE
+
+
+// The validateForm function checks that user input is a number.
+function validateForm() {
+    var z = document.forms["inputForm"]["project_srid"].value;
+    if(/\D/.test(z)) {
+        alert("Please only enter numeric characters for the SRID")
+        projectSRIDInput.focus();
+    }
+}
+
+// Call the validateForm function when a user clicks inside the SRID input field.
+projectSRID.addEventListener("input", function() {
+    validateForm();
+})
+
+
+// The clearSubmit function clears the submit fields.
+function clearSubmit() {
+    projectNameInput.value = "";
+    projectSRIDInput.value = "";
+    projectBillNumTypeInput.value = "";
+    projectBillNumValueInput.value = "";
+    projectVendorInput.value = "";
+    projectDateReqInput.value = "";
+    projectAssetAreaInput.value = "";
+    projectTypeInput.value = "";
+    projectLonInput.value = "";
+    projectLatInput.value = "";
+    projectNameInput.focus();
+    map.graphics.clear();
+    map.infoWindow.hide();
+}
 
 
 btnSubmit.addEventListener("click", function insert ( ) {
@@ -29,57 +145,110 @@ btnSubmit.addEventListener("click", function insert ( ) {
         projectVendors: projectVendorInput.value,
         projectDateReqs: projectDateReqInput.value,
         projectAssetAreas: projectAssetAreaInput.value,
-        projectTypes: projectTypeInput.value
+        projectTypes: projectTypeInput.value,
+        projectLons: projectLonInput.value,
+        projectLats: projectLatInput.value
     };
-        surveyRequests.push(uniqueRequest);
-        projectNameInput.value = "";
-        projectSRIDInput.value = "";
-        projectBillNumTypeInput.value = "";
-        projectBillNumValueInput.value = "";
-        projectVendorInput.value = "";
-        projectDateReqInput.value = "";
-        projectAssetAreaInput.value = "";
-        projectTypeInput.value = "";
-        
-        var submitMessage ="Yay! You added a thing!";
-        alert(submitMessage);
-             
+        // Check that a project name, SRID, bill number type, bill number value, vendor, date requested, asset area, project type, lat, and lon are not null before pushing to the surveyRequests object.
+        if (
+            (projectNameInput.value == "" || projectNameInput.value == null) || 
+            (projectSRIDInput.value == "" || projectSRIDInput.value == null) ||
+            (projectBillNumTypeInput.value == "" || projectBillNumTypeInput.value == null) ||
+            (projectBillNumValueInput.value == "" || projectBillNumValueInput.value == null) ||
+            (projectVendorInput.value == "" || projectVendorInput.value == null) ||
+            (projectDateReqInput.value == "" || projectDateReqInput.value == null) ||
+            (projectAssetAreaInput.value == "" || projectAssetAreaInput.value == null) ||
+            (projectTypeInput.value == "" || projectTypeInput.value == null) ||
+            (projectLonInput.value == "" || projectLonInput.value == null) ||
+            (projectLatInput.value == "" || projectLatInput.value == null)
+            ) {
+            alert("Oops, looks like you missed some fields. Fill your shit out.")
+        } else {
+            // If all values are filled out, push values to the surveyRequests object, clear the input fields, clear the map, and show an alert that the values have been added.
+            surveyRequests.push(uniqueRequest);
+            clearSubmit();            
+            alert("Yay! You added a thing!");
+        }  
 });
 
 
-function compareObjects(o1, o2) {
+// The compareObjects function compares values added to an object. If a record exactly matches another record, return false and do not show in the searchResults array. The function could also be written like:
+/* function compareObjects(o1, o2) {
     var k = '';
     for(k in o1) if(o1[k] != o2[k]) return false;
     for(k in o2) if(o1[k] != o2[k]) return false;
     return true;
-  }
-  
-  function itemExists(haystack, needle) {
-    for(var i=0; i<haystack.length; i++) if(compareObjects(haystack[i], needle)) return true;
+  } */
+
+function compareObjects(o1, o2) {
+    var k = '';
+    for(k in o1) {
+        if (o1[k] != o2[k]) {
+            return false;
+        }
+    }
+    for(k in o2) {
+        if (o1[k] != o2[k]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Used with the compareObjects function above, the itemExists function searchs an object to see if a value exists. 
+function itemExists(arr, obj) {
+    for (var i = 0; i < arr.length; i++) {
+        if (compareObjects(arr[i], obj)) {
+            return true;
+        }
+    }
     return false;
-  }
+}
 
 
+// Search button used to search for values in the surveyRequests object.
 btnSearch.addEventListener("click", function () {
+    // Empty searchResults array.
     searchResults=[];
+    // Convert the user's search input to uppercase.
     var searchValueUpper = searchValueInput.value.toUpperCase();
+    // Use itemExists function from above to see if a value in the surveyRequests object matches user's input. If the search value is in the object, push it to the searchResults object. Identical entries in surveyRequests are not pushed to searchResults.
     if(searchValueUpper.length!=0) {
         for(var i=0; i < surveyRequests.length; i++) {
             for(key in surveyRequests[i]) {
                 if(surveyRequests[i][key].indexOf(searchValueUpper)!=-1) {
-                    if(!itemExists(searchResults, surveyRequests[i]))
-                    searchResults.push(surveyRequests[i]);
+                    if(!itemExists(searchResults, surveyRequests[i])) {
+                        searchResults.push(surveyRequests[i]);
+                    }
                 } 
             }
         }
     } 
 
+    // If a value was pushed to searchResults, call the saveAndShow function. Else, clear values and show an alert that no results were found.
     if (searchResults.length > 0) {
         saveAndShow();
+        
+        // Display values from table in input fields based on the row a user clicks
+        var table = document.getElementById("resultsTable");
+        for(var i=1; i<table.rows.length; i++) {
+            table.rows[i].onclick = function() {
+                projectNameInput.value = (this.cells[0]).innerHTML;
+                projectSRIDInput.value = (this.cells[1]).innerHTML;
+                projectBillNumTypeInput.value = (this.cells[2]).innerHTML;
+                projectBillNumValueInput.value = (this.cells[3]).innerHTML;
+                projectVendorInput.value = (this.cells[4]).innerHTML;
+                projectDateReqInput.value = (this.cells[5]).innerHTML;
+                projectAssetAreaInput.value = (this.cells[6]).innerHTML;
+                projectTypeInput.value = (this.cells[7]).innerHTML;
+                projectLonInput.value = (this.cells[8]).innerHTML;
+                projectLatInput.value = (this.cells[9]).innerHTML;
+            }
+        }
     } else {
         tbody.innerHTML="";
         thead.innerHTML="";
-        document.getElementById("btnClear").style.display = "none";
+        btnClear.style.display = "none";
         searchValueInput.value="";
 
         var searchMessage ="No results found.";
@@ -88,30 +257,46 @@ btnSearch.addEventListener("click", function () {
 })
 
 
-
+// The saveAndShow function builds a table to show the results pushed to the searchResults object. A hidden clear button is also displayed.
 function saveAndShow() {
     tbody.innerHTML="";
     thead.innerHTML="";
     for (var i=0; i < searchResults.length; i += 1) {
         var tr="<tr>";
-        var th="<tr><th>SRID</th>" + "<th>ProjectName</th>" + "<th>Billing Number</th></tr>";
+        var th="<tr><th>Project Name</th>" + "<th>SRID</th>" + "<th>Billing Number</th>" + "<th style='display:none'>Bill Num Type</th></tr>"; 
 
-        tr += "<td>" + searchResults[i].projectSRIDs + "</td>" + "<td>" + searchResults[i].projectNames + "</td>" + "<td>" + searchResults[i].projectBillNumValues + "</td></tr>";
+        tr += 
+            "<td>" + searchResults[i].projectNames + "</td>" +    
+            "<td>" + searchResults[i].projectSRIDs + "</td>" +
+            "<td style='display:none'>" + searchResults[i].projectBillNumTypes + "</td>" + 
+            "<td>" + searchResults[i].projectBillNumValues + "</td>" + 
+            "<td style='display:none'>" + searchResults[i].projectVendors + "</td>" +
+            "<td style='display:none'>" + searchResults[i].projectDateReqs + "</td>" +
+            "<td style='display:none'>" + searchResults[i].projectAssetAreas + "</td>" +
+            "<td style='display:none'>" + searchResults[i].projectTypes + "</td>" +
+            "<td style='display:none'>" + searchResults[i].projectLons + "</td>" +
+            "<td style='display:none'>" + searchResults[i].projectLats + "</td>" +            
+            "</tr>";
 
         thead.innerHTML = th;
         tbody.innerHTML += tr;
         
-        document.getElementById("btnClear").style.display = "inline";
+        // Display the Clear button
+        btnClear.style.display = "inline";
     }
 }
 
 
-
-btnClear.addEventListener("click", function () {
+// Clear button to clear values in the table created in the saveAndShow function; hide the Clear button; clear values in the submit form; place focus in the Project Name Input box.
+btnClear.addEventListener("click", function() {
     tbody.innerHTML="";
     thead.innerHTML="";
     searchValueInput.value="";
     document.getElementById("btnClear").style.display = "none";
+    clearSubmit();
 })
+
+
+
 
 

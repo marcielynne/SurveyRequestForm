@@ -6,6 +6,10 @@
         <title>Survey Request Form</title>
         <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/main.css">
+        <!-- ArcGIS JavaScript API -->
+        <link rel="stylesheet" href="https://js.arcgis.com/3.26/esri/css/esri.css">
+        <script src="https://js.arcgis.com/3.26/"></script>
+
     </head>
     <body id="index">
         <div class="main-nav">
@@ -18,15 +22,21 @@
             </ul>
         </div>
 
-        <div class="main-container-1">
-            <form id="fieldset" method="POST" action="index.html" onsubmit="return false;"> 
+        <div class="main-container-1">            
+            <div id="mapDiv">
+                <p class="mapText">Click on the map to add a point.</p>
+            </div>
+            
+
+            <form name="inputForm" id="fieldset" method="POST" action="index.html" onsubmit="return false;"> 
                 <div class="overall-flex">                   
                     <div class="form-flex">
+                        <h2>Enter New Survey Request</h2>
                         <label for="projectName">Project Name:</label>
                         <input type="text" id="projectName" name="project_name"><br>
 
                         <label for="projectSRID">SRID:</label>
-                        <input type="number" id="projectSRID" name="project_srid"><br>
+                        <input type="text" id="projectSRID" name="project_srid"><br>
 
                         <label for="projectBillNumType">Bill Number Type:</label>
                         <select id="projectBillNumType" name="project_bill_num_type">
@@ -127,23 +137,30 @@
                                 <option value="WELL LOCATION DOCUMENT">WELL LOCATION DOCUMENT</option>
                                 <option value="WELL PAD DESIGN SUMMARY">WELL PAD DESIGN SUMMARY</option>
                         </select><br>
+
+                        <label for="projectLon">X Longitude:</label>
+                        <input type="text" id="projectLon" name="project_lon" readonly><br>
+
+                        <label for="projectLat">Y Latitude:</label>
+                        <input type="text" id="projectLat" name="project_lat" readonly><br>
                         
-                        <button class="button" id="btnSubmit" type="submit">Submit</button>
+                        <button class="button" id="btnSubmit" type="button">Submit</button>
 
                     </div>
                 
                     <div class="search-display-flex">
-                        <label for="searchValue">Search Existing Requests:</label>
+                        <h2>Search Existing Requests</h2>
+                        <label for="searchValue">Value:</label>
                         <input type="text" id="searchValue" name="search_value"><br>
 
                         <button class="button" id="btnSearch" type="button">Search</button><br><br>
                         
-                        <table>
+                        <table id="resultsTable">
                             <thead id="thead"></thead>
                             <tbody id="tbody"></tbody>
                         </table><br>
 
-                        <button class="button" id="btnClear" type="button">Clear</button><br><br>
+                        <button class="button" id="btnClear" type="button" display="none">Clear</button><br><br>
                         
 
                     </div>
@@ -153,5 +170,6 @@
         </div>
 
         <script src="js/java.js"></script>
+        
     </body>
 </html>
