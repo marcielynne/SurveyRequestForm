@@ -67,17 +67,21 @@ require([
 
     // When the map is clicked add a point graphic to the map that shows lat/lon. Populate the lat/lon values into the corresponding lat/lon input fields
     map.on("click", function(evt){
-        var mp = webMercatorUtils.webMercatorToGeographic(evt.mapPoint);
-        map.graphics.clear();
-        map.graphics.add(new Graphic(mp, symbol));
-        map.infoWindow.setContent(
-            "POINT FOR NEW REQUEST:" +
-            "<br>X Lon: " + mp.x.toString() + 
-            ", <br>Y Lat: " + mp.y.toString()
-            );
-        map.infoWindow.show(mp);
-        projectLonInput.value = mp.x.toString();
-        projectLatInput.value = mp.y.toString();
+        // Check to see if the Clear button is visible. If it is, prompt the user to hit the Clear button before adding a new record. If it is not visible, allow user to click a point on the map to view the lat/lon.
+        if (btnClear.offsetParent === null) {
+            var mp = webMercatorUtils.webMercatorToGeographic(evt.mapPoint);
+            map.graphics.clear();
+            map.graphics.add(new Graphic(mp, symbol));
+            map.infoWindow.setContent(
+                "X Lon: " + mp.x.toString() + 
+                ", <br>Y Lat: " + mp.y.toString()
+                );
+            map.infoWindow.show(mp);
+            projectLonInput.value = mp.x.toString();
+            projectLatInput.value = mp.y.toString();
+            } else {
+                alert("Hit the Clear buttong before adding a new record")
+            } 
     });
 
     // The showCoordinates function adds a point to the map based on the values in the lat/lon input fields. It also zooms to that point.
@@ -295,6 +299,7 @@ btnClear.addEventListener("click", function() {
     document.getElementById("btnClear").style.display = "none";
     clearSubmit();
 })
+
 
 
 

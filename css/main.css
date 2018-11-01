@@ -8,12 +8,13 @@ body {
   background: #fff;
   padding: 10px 20px;
   border-radius: 5px;
-  box-shadow: 5px 55px 50px -50px #b6b6b6; 
+  box-shadow: 5px 55px 50px -50px #b6b6b6;
 } 
 
 ul {
   padding: 0;
   list-style: none;
+  margin: 0;
 }
 
 .nav {
@@ -50,13 +51,29 @@ h1 {
   margin-right: auto;
 }
 
-.main-container-1 #mapDiv {
+
+.overall-flex,
+#fieldset {
   display: flex;
-  width: auto;
-  height: 500px;
-  margin: 3% 5% 0 5%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border: none;
+  flex-wrap: wrap;
+}
+
+#mapDiv {
+  flex: 1;
+  min-width: 350px;
+  height: 650px;
+  margin: 2.5% 1% 0 3%;
   position: relative;
 }
+
+#fieldset {
+  width: 800px;
+  margin: 2% 1.5% 0 1%;
+}
+
 
 .mapText {
   position: absolute;
@@ -70,67 +87,35 @@ h1 {
   padding: 3px;
 }
 
-.form-flex input,
-.search-display-flex input {
-  text-transform: uppercase;
-}
-
-table {
-  max-width: 600px;
-}
-
-td, th {
-  border: 1px solid #ddd;
-  text-align: left;
-  padding: 8px;
-}
-
-table tbody tr:nth-child(odd) {
-  background-color: #ddd;
-}
-
-table tbody tr:hover {
-  background: lightblue;
-}
-
-#btnClear {
-  display:none;
-}
-
-.overall-flex {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  border: none;
-  flex-wrap: wrap;
-}
-
 .search-display-flex,
 .form-flex {
-  display: flex;
-  flex-wrap: wrap;
   padding: 10px 10px;
-  flex-direction: column;
   color: rgb(141, 139, 143);
   text-decoration: none;
   font-size: 1em;
   font-family: Arial, Helvetica, sans-serif;
-  margin: 0 5% 0 5%;
   border-style: none;
   max-width: 400px;
+  /* margin: 3% 0 0 0; */
+}
+
+h2 {
+  margin: 0 0 10px 0;
 }
 
 input,
 select {
   border: 1px solid rgb(141, 139, 143);
   height: 25px;
-  width: 400px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   color: #333333;
   padding: 5px;
+  text-transform: uppercase;
+  margin: 7px 0;
 } 
+
 
 #projectLon,
 #projectLat {
@@ -157,6 +142,7 @@ input[type=date]::-webkit-outer-spin-button {
   font-size: 1em;
   outline: none;
   width: 100px;
+  margin: 5px 0;
 }
 
 .button:hover {
@@ -168,6 +154,28 @@ input[type=date]::-webkit-outer-spin-button {
 
 .button:active {
   box-shadow: inset 1px 1px 1px #DFDFDF;   
+}
+
+table {
+  max-width: 600px;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 8px;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: #ddd;
+}
+
+table tbody tr:hover {
+  background: lightblue;
+}
+
+#btnClear {
+  display:none;
 }
 
 
@@ -209,6 +217,10 @@ input[type=date]::-webkit-outer-spin-button {
       width: 250px;
   }
 
+  #mapDiv {
+      height: 400px;
+  }
+
 }
 
 /* Media query for screen size less than 679px */
@@ -235,7 +247,7 @@ input[type=date]::-webkit-outer-spin-button {
 
   input,
   select {
-      width: 400px;
+      width: 350px;
   }
 
 }
