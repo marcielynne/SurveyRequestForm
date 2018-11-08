@@ -1,9 +1,8 @@
+// Declare variables
 var map;
-
 var searchResults = [];
 var surveyRequests = [];
 var request;
-
 var projectNameInput = document.getElementById("projectName");
 var projectSRIDInput = document.getElementById("projectSRID");
 var projectBillNumTypeInput = document.getElementById("projectBillNumType");
@@ -14,17 +13,16 @@ var projectAssetAreaInput = document.getElementById("projectAssetArea");
 var projectTypeInput = document.getElementById("projectType");
 var projectLonInput = document.getElementById("projectLon");
 var projectLatInput = document.getElementById("projectLat");
-
 var searchTypeInput = document.getElementById("searchType");
 var searchValueInput = document.getElementById("searchValue");
-
 var tbody = document.getElementById("tbody");
 var thead = document.getElementById("thead");
 var btnClear = document.getElementById("btnClear");
 
 
 // BEGINNING OF MAP CODE
-// Import Dojo resources. The order under require should match the order under the first function.
+// Import Dojo resources. Esri uses Dojo which (according to Wikipedia) is an open source modular JS toolkit designed to ease the rapid development of cross-platform, JS/Ajax based apps and web sites. 
+// The order under 'require' should match the order under the first function.
 require([
     "esri/map",
     "esri/graphic", 
@@ -53,7 +51,7 @@ require([
       zoom: 4
     });
 
-    // Symbol graphic used when a user clicks on the map and when a user zooms to a project.
+    // Symbol graphic (red circle) used when a user clicks on the map and when a user zooms to a project.
     var symbol = new SimpleMarkerSymbol(
         SimpleMarkerSymbol.STYLE_CIRCLE,
         16,
@@ -65,7 +63,7 @@ require([
         new Color([255, 0, 0, 1])
       );
 
-    // When the map is clicked add a point graphic to the map that shows lat/lon. Populate the lat/lon values into the corresponding lat/lon input fields
+    // When the map is clicked add a point graphic to the map that shows the lat/lon. Populate the lat/lon values into the corresponding lat/lon input fields.
     map.on("click", function(evt){
         // Check to see if the Clear button is visible. If it is, prompt the user to hit the Clear button before adding a new record. If it is not visible, allow user to click a point on the map to view the lat/lon.
         if (btnClear.offsetParent === null) {
@@ -80,7 +78,7 @@ require([
             projectLonInput.value = mp.x.toString();
             projectLatInput.value = mp.y.toString();
             } else {
-                alert("Hit the Clear buttong before adding a new record")
+                alert("Hit the Clear button before adding a new record")
             } 
     });
 
@@ -98,16 +96,17 @@ require([
         map.infoWindow.show(mp);
     }
      
-    // Call the showCoordinates function above when a user clicks on the resultsTable
+    // Call the showCoordinates function above when a user clicks on the resultsTable. Clear an existing point graphic and hide an info box if they are visible on the map.
     resultsTable.addEventListener("click", function() {
         map.graphics.clear();
+        map.infoWindow.hide();
         showCoordinates();
     })
 });
 // END OF MAP CODE
 
 
-// The validateForm function checks that user input is a number.
+// The validateForm function checks that user input is a number. This is used to check that the SRID entered by the user is a number.
 function validateForm() {
     var z = document.forms["inputForm"]["project_srid"].value;
     if(/\D/.test(z)) {
@@ -122,7 +121,7 @@ projectSRID.addEventListener("input", function() {
 })
 
 
-// The clearSubmit function clears the submit fields.
+// The clearSubmit function clears the submit fields and the graphics on the map.
 function clearSubmit() {
     projectNameInput.value = "";
     projectSRIDInput.value = "";
@@ -139,7 +138,7 @@ function clearSubmit() {
     map.infoWindow.hide();
 }
 
-
+// When the user clicks the Submit button, create a new array called uniqueRequest to store the values entered by the user into the input fields.
 btnSubmit.addEventListener("click", function insert ( ) {
         var uniqueRequest = {
         projectNames: projectNameInput.value.toUpperCase(),
@@ -153,7 +152,7 @@ btnSubmit.addEventListener("click", function insert ( ) {
         projectLons: projectLonInput.value,
         projectLats: projectLatInput.value
     };
-        // Check that a project name, SRID, bill number type, bill number value, vendor, date requested, asset area, project type, lat, and lon are not null before pushing to the surveyRequests object.
+        // Check that the input fields for project name, SRID, bill number type, bill number value, vendor, date requested, asset area, project type, lat, and lon are not null before pushing to the surveyRequests object.
         if (
             (projectNameInput.value == "" || projectNameInput.value == null) || 
             (projectSRIDInput.value == "" || projectSRIDInput.value == null) ||
@@ -166,9 +165,9 @@ btnSubmit.addEventListener("click", function insert ( ) {
             (projectLonInput.value == "" || projectLonInput.value == null) ||
             (projectLatInput.value == "" || projectLatInput.value == null)
             ) {
-            alert("Oops, looks like you missed some fields. Fill your shit out.")
+            alert("Oops, looks like you missed some fields.")
         } else {
-            // If all values are filled out, push values to the surveyRequests object, clear the input fields, clear the map, and show an alert that the values have been added.
+            // If all values are filled out, push values to the surveyRequests object, call the clearSubmit() function, and show an alert that the values have been added.
             surveyRequests.push(uniqueRequest);
             clearSubmit();            
             alert("Yay! You added a thing!");
@@ -176,14 +175,7 @@ btnSubmit.addEventListener("click", function insert ( ) {
 });
 
 
-// The compareObjects function compares values added to an object. If a record exactly matches another record, return false and do not show in the searchResults array. The function could also be written like:
-/* function compareObjects(o1, o2) {
-    var k = '';
-    for(k in o1) if(o1[k] != o2[k]) return false;
-    for(k in o2) if(o1[k] != o2[k]) return false;
-    return true;
-  } */
-
+// The compareObjects function compares values added to an object. If a record does not exactly match another record, return false. Ultimately, records that match exactly will not be shown in the results table. 
 function compareObjects(o1, o2) {
     var k = '';
     for(k in o1) {
@@ -198,6 +190,14 @@ function compareObjects(o1, o2) {
     }
     return true;
 }
+// The compareObjects function could also be written like:
+/* function compareObjects(o1, o2) {
+    var k = '';
+    for(k in o1) if(o1[k] != o2[k]) return false;
+    for(k in o2) if(o1[k] != o2[k]) return false;
+    return true;
+  } */
+
 
 // Used with the compareObjects function above, the itemExists function searchs an object to see if a value exists. 
 function itemExists(arr, obj) {
@@ -212,7 +212,7 @@ function itemExists(arr, obj) {
 
 // Search button used to search for values in the surveyRequests object.
 btnSearch.addEventListener("click", function () {
-    // Empty searchResults array.
+    // Empty searchResults object.
     searchResults=[];
     // Convert the user's search input to uppercase.
     var searchValueUpper = searchValueInput.value.toUpperCase();
@@ -233,7 +233,7 @@ btnSearch.addEventListener("click", function () {
     if (searchResults.length > 0) {
         saveAndShow();
         
-        // Display values from table in input fields based on the row a user clicks
+        // Display values from table in input fields based on the row a user clicks.
         var table = document.getElementById("resultsTable");
         for(var i=1; i<table.rows.length; i++) {
             table.rows[i].onclick = function() {
@@ -254,7 +254,6 @@ btnSearch.addEventListener("click", function () {
         thead.innerHTML="";
         btnClear.style.display = "none";
         searchValueInput.value="";
-
         var searchMessage ="No results found.";
         alert(searchMessage);
     }  
@@ -269,6 +268,7 @@ function saveAndShow() {
         var tr="<tr>";
         var th="<tr><th>Project Name</th>" + "<th>SRID</th>" + "<th>Billing Number</th>" + "<th style='display:none'>Bill Num Type</th></tr>"; 
 
+        // Build the table to display values from the searchResults object. Only show fields for the project name, SRID, and bill number.
         tr += 
             "<td>" + searchResults[i].projectNames + "</td>" +    
             "<td>" + searchResults[i].projectSRIDs + "</td>" +
@@ -291,7 +291,7 @@ function saveAndShow() {
 }
 
 
-// Clear button to clear values in the table created in the saveAndShow function; hide the Clear button; clear values in the submit form; place focus in the Project Name Input box.
+// Clear button to clear values in the table created in the saveAndShow function. Also hides the Clear button, clears values in the submit form, and places focus in the Project Name Input box.
 btnClear.addEventListener("click", function() {
     tbody.innerHTML="";
     thead.innerHTML="";
@@ -299,9 +299,3 @@ btnClear.addEventListener("click", function() {
     document.getElementById("btnClear").style.display = "none";
     clearSubmit();
 })
-
-
-
-
-
-

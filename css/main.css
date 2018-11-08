@@ -1,9 +1,10 @@
-
+/* Main body formatting */
 body {
   justify-content: center;
   align-items: center;
 }
 
+/* Main navigation formatting */
 .main-nav {
   background: #fff;
   padding: 10px 20px;
@@ -11,19 +12,18 @@ body {
   box-shadow: 5px 55px 50px -50px #b6b6b6;
 } 
 
-ul {
-  padding: 0;
-  list-style: none;
-  margin: 0;
-}
-
+/* Navigation list formatting */
 .nav {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 0;
+  list-style: none;
+  margin: 0;
 }
 
+/* Navigation text formatting; text formatting for Validation, Invoicing, and Time pages */
 .nav a,
 .nav img,
 h1 {
@@ -35,25 +35,28 @@ h1 {
   font-weight: 100;
 }
 
+/* Navigation text formatting on hover */
 .nav a:hover {
   color: black;
 }
 
-#index .main-nav .nav .item-1 a,
+/* Navigation formatting - underline text to show which page is active */
+#index .main-nav .nav #item-1 a,
 #validation .main-nav .nav .item-2 a,
 #invoicing .main-nav .nav .item-3 a,
 #time .main-nav .nav .item-4 a {
   text-decoration: underline;
 }
 
+/* Logo formatting */
 .logo {
   margin-left: auto;
   margin-right: auto;
 }
 
-
+/* Flexbox formatting for the overall container and input form container */
 .overall-flex,
-#fieldset {
+.fieldset {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -61,24 +64,26 @@ h1 {
   flex-wrap: wrap;
 }
 
+/* Formatting for the map div */
 #mapDiv {
-  flex: 1;
-  min-width: 350px;
-  height: 650px;
-  margin: 2.5% 1% 0 3%;
+  flex: 2;
+  min-width: 400px;
+  max-width: auto;
   position: relative;
 }
 
-#fieldset {
-  width: 800px;
-  margin: 2% 1.5% 0 1%;
+/* Formatting for the form container */
+.fieldset {
+  flex: 1;
+  margin: 15px 10px 0 10px;
+  align-self: center;
 }
 
-
+/* Formatting for the text that tells a user to click on the map to add a point */
 .mapText {
   position: absolute;
-  bottom: 1rem;
-  left: 1rem;
+  top: 1rem;
+  right: 1rem;
   color: white;
   z-index: 1000;
   font-size: 1.2em;
@@ -87,6 +92,7 @@ h1 {
   padding: 3px;
 }
 
+/* Formatting for the input form and search form */
 .search-display-flex,
 .form-flex {
   padding: 10px 10px;
@@ -96,13 +102,14 @@ h1 {
   font-family: Arial, Helvetica, sans-serif;
   border-style: none;
   max-width: 400px;
-  /* margin: 3% 0 0 0; */
 }
 
+/* Formatting for the input and search form titles */
 h2 {
   margin: 0 0 10px 0;
 }
 
+/* Formatting for the textboxes and listboxes */
 input,
 select {
   border: 1px solid rgb(141, 139, 143);
@@ -116,13 +123,13 @@ select {
   margin: 7px 0;
 } 
 
-
+/* Formatting for the lat/lon input fields to make the background light grey */
 #projectLon,
 #projectLat {
   background: lightgrey;
 }
 
-/* Remove arrows from number input box */
+/* Remove arrows from number and date input boxes */
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button,
 input[type=date]::-webkit-inner-spin-button, 
@@ -131,7 +138,7 @@ input[type=date]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-
+/* Formatting for the buttons */
 .button {
   color: #444444;
   background: #F3F3F3;
@@ -145,6 +152,7 @@ input[type=date]::-webkit-outer-spin-button {
   margin: 5px 0;
 }
 
+/* Formatting for the buttons on hover */
 .button:hover {
   border: 1px #C6C6C6 solid;
   box-shadow: 1px 1px 1px #EAEAEA;
@@ -152,32 +160,41 @@ input[type=date]::-webkit-outer-spin-button {
   background: #F7F7F7;
 }
 
+/* Formatting for the buttons when a user clicks on them */
 .button:active {
   box-shadow: inset 1px 1px 1px #DFDFDF;   
 }
 
+/* Formatting for the search results table */
 table {
-  max-width: 600px;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 1em;
 }
 
+/* Formatting for the table header */
 td, th {
   border: 1px solid #ddd;
   text-align: left;
   padding: 8px;
 }
 
+/* Formatting for the table rows to make every other row a different color */
 table tbody tr:nth-child(odd) {
   background-color: #ddd;
 }
 
+/* Formatting for the table rows on hover; change the pointe to a mouse hand */
 table tbody tr:hover {
   background: lightblue;
+  cursor: pointer;
 }
 
+/* Formatting to hide the clear button */
 #btnClear {
   display:none;
 }
-
 
 
 
@@ -188,84 +205,181 @@ table tbody tr:hover {
 
 /* Media query for screen size less than 455px */
 @media only screen and (max-width: 455px) {
+  
+  /* Hide the logo */
   .logo {
-      display: none;
+    display: none;
   }
 
+  /* Adjust the padding, border-radius, and box-shadow of the navigation menu */
   .main-nav {
-      padding: 5px 5px;
-      border-radius: 5px;
-      box-shadow: 5px 15px 15px -15px #b6b6b6;
+    padding: 5px 5px;
+    border-radius: 5px;
+    box-shadow: 5px 15px 15px -15px #b6b6b6;
   }
 
+  /* Adjust the items of the navigation menu minus the logo */
   .nav li:not(.logo) {
-      margin-left: 3%;
-      margin-right: 3%;
+    margin-left: 3%;
+    margin-right: 3%;
   }
 
+  /* Align the navigation items as a column instead of a row */
   .nav {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
   
+  /* Adjust the navigation font size */
   .nav a {
-      font-size: 1.2em;
+    font-size: 1.2em;
   }
 
+  /* Adjust the input box widths */
   input,
   select {
-      width: 250px;
+    width: 250px;
   }
 
+  /* Adjust the height and margin for the map div */
   #mapDiv {
-      height: 400px;
+    height: 400px;
+    margin: 15px 15px 0 15px;
+  }
+
+  /* Add more top margin for the search input area */
+  #existingRequests {
+    margin-top: 20px;
+  }
+
+  /* Adjust the input and search form title size */
+  h2 {
+    font-size: 1.2em;
+  }
+
+  /* Adjust the map text */
+  .mapText {
+    font-size: 1em;
+  }
+
+  /* Adjust the results table size */
+  #resultsTable {
+    width: 250px;
   }
 
 }
 
-/* Media query for screen size less than 679px */
-@media only screen and (min-width: 950px),
-        only screen and (min-width: 456px) {
+/* Media query for screen size greater than 456px */
+@media only screen and (min-width: 456px) {
+  /* Hide the logo */
   .logo {
       display: none;
   }
 
+  /* Adjust the padding, border-radius, and box-shadow of the navigation menu */
   .main-nav {
       padding: 5px 5px;
       border-radius: 5px;
       box-shadow: 5px 15px 15px -15px #b6b6b6;
   }
 
+  /* Adjust the items of the navigation menu minus the logo */
   .nav li:not(.logo) {
       margin-left: 3%;
       margin-right: 3%;
   }
 
+  /* Adjust the navigation font size */
   .nav a {
       font-size: 1.4em;
   }
 
+  /* Adjust the input box widths */
   input,
   select {
       width: 350px;
   }
 
+  /* Adjust the height and margin for the map div */
+  #mapDiv {
+    height: 400px;
+    margin: 15px 15px 0 15px;
+  }
+
+  /* Add more top margin for the search input area */
+  #existingRequests {
+    margin-top: 20px;
+  }
+
+  /* Adjust the input and search form title size */
+  h2 {
+    font-size: 1.4em;
+  }
+
+  /* Adjust the form container width */
+  .fieldset {
+    min-width: 400px;
+    max-width: 400px;
+  }
 }
 
 
-/* Media query for screen size less than 1140px */
+/* Media query for screen size greater than 801px */
+@media only screen and (min-width: 801px) {
+
+  /* Adjust the form container width */
+  .fieldset {
+    min-width: 800px;
+    max-width: 800px;
+  }
+
+  /* Set the top margin for the search input area to 0 */
+  #existingRequests {
+    margin-top: 0;
+  }
+
+  /* Adjust the height and margin for the map div */
+  #mapDiv {
+    height: 650px;
+    margin: 15px 15px 0 15px;
+  }
+}
+
+
+/* Media query for screen size greater than 1140px */
 @media only screen and (min-width: 1140px) {
+  /* Display the logo */
   .logo {
       display: flex;
   }
   
+  /* Adjust the items of the navigation menu minus the logo */
   .nav li:not(.logo) {
       margin-left: 4%;
       margin-right: 4%;
       margin-top: 30px;
   }
 
+  /* Adjust the navigation font size */
   .nav a {
     font-size: 1.8em;
-}
+  }
+
+  /* Set the top margin for the search input area to 0 */
+  #existingRequests {
+    margin-top: 0;
+  }
+
+  /* Adjust the form container width */
+  .fieldset {
+    min-width: 800px;
+    max-width: 800px;
+  }
+
+  /* Adjust the height and margin for the map div */
+  #mapDiv {
+    height: 650px;
+    margin: 30px 15px 0 15px;
+  }
+
 }
