@@ -13,11 +13,12 @@ var projectAssetAreaInput = document.getElementById("projectAssetArea");
 var projectTypeInput = document.getElementById("projectType");
 var projectLonInput = document.getElementById("projectLon");
 var projectLatInput = document.getElementById("projectLat");
-var searchTypeInput = document.getElementById("searchType");
 var searchValueInput = document.getElementById("searchValue");
 var tbody = document.getElementById("tbody");
 var thead = document.getElementById("thead");
 var btnClear = document.getElementById("btnClear");
+var btnSubmit = document.getElementById("btnSubmit");
+var btnSearch = document.getElementById("btnSearch")
 
 
 // BEGINNING OF MAP CODE
@@ -106,21 +107,6 @@ require([
 // END OF MAP CODE
 
 
-// The validateForm function checks that user input is a number. This is used to check that the SRID entered by the user is a number.
-function validateForm() {
-    var z = document.forms["inputForm"]["project_srid"].value;
-    if(/\D/.test(z)) {
-        alert("Please only enter numeric characters for the SRID")
-        projectSRIDInput.focus();
-    }
-}
-
-// Call the validateForm function when a user clicks inside the SRID input field.
-projectSRID.addEventListener("input", function() {
-    validateForm();
-})
-
-
 // The clearSubmit function clears the submit fields and the graphics on the map.
 function clearSubmit() {
     projectNameInput.value = "";
@@ -138,9 +124,34 @@ function clearSubmit() {
     map.infoWindow.hide();
 }
 
-// When the user clicks the Submit button, create a new array called uniqueRequest to store the values entered by the user into the input fields.
-btnSubmit.addEventListener("click", function insert ( ) {
-        var uniqueRequest = {
+
+// The validateSRID function checks that user input is a number.
+function validateSRID() {
+    var z = projectSRIDInput.value;
+    if(/\D/.test(z)) {
+        alert("Only numbers are allowed for the SRID")
+        projectSRIDInput.value = "";
+        projectSRIDInput.focus();
+    }
+}
+
+// Call the validateSRID function when a user clicks inside the SRID input field.
+projectSRIDInput.addEventListener("input", function() {
+    validateSRID();
+})
+
+
+// When the user clicks the Submit button...
+btnSubmit.addEventListener("click", function insert ( ) {    
+    //Variables for date validation
+    var z = projectDateReqInput.value;
+    var parts = z.split("/");
+    var day = parseInt(parts[1], 10);
+    var month = parseInt(parts[0], 10);
+    var year = parseInt(parts[2], 10);
+    
+    // Create a new array called uniqueRequest to store the values entered by the user into the input fields.
+    var uniqueRequest = {
         projectNames: projectNameInput.value.toUpperCase(),
         projectSRIDs: projectSRIDInput.value,
         projectBillNumTypes: projectBillNumTypeInput.value,
@@ -166,6 +177,9 @@ btnSubmit.addEventListener("click", function insert ( ) {
             (projectLatInput.value == "" || projectLatInput.value == null)
             ) {
             alert("Oops, looks like you missed some fields.")
+        } else if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(z) || (year < 1900 || year > 2100 || month == 0 || month > 12 || day <= 0 || day > 31)) {
+            alert("Date is not in the correct format or the value is wrong.")
+            z.focus();
         } else {
             // If all values are filled out, push values to the surveyRequests object, call the clearSubmit() function, and show an alert that the values have been added.
             surveyRequests.push(uniqueRequest);

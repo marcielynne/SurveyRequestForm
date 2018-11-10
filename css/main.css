@@ -50,8 +50,8 @@ h1 {
 
 /* Logo formatting */
 .logo {
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 70px;
+  margin-right: 70px;
 }
 
 /* Flexbox formatting for the overall container and input form container */
@@ -59,7 +59,9 @@ h1 {
 .fieldset {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
+  justify-content: center;
+  /* align-items: center; */
   border: none;
   flex-wrap: wrap;
 }

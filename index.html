@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Survey Request Form</title>
         <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" type='text/css' href="css/main.css">
+        
         <!-- ArcGIS JavaScript API -->
         <link rel="stylesheet" href="https://js.arcgis.com/3.26/esri/css/esri.css">
         <script src="https://js.arcgis.com/3.26/"></script>
@@ -27,7 +28,7 @@
         <div class="overall-flex">                   
             <!-- Div for the map -->
             <div id="mapDiv">
-                <p class="mapText">Click on the map to add a point.</p>
+                <p class="mapText" alt="Form Map">Click on the map to add a point.</p>
             </div> <!--/mapDiv -->
             
             <!-- Input form -->
@@ -101,7 +102,7 @@
 
                     <!-- Project Date Req textbox for dates -->
                     <label for="projectDateReq">Date Requested:</label><br>
-                    <input type="date" id="projectDateReq" name="project_date_req"><br>
+                    <input type="text" id="projectDateReq" name="project_date_req" placeholder="DD/MM/YYYY"><br>
 
                     <!-- Project Asset Area listbox -->
                     <label for="projectAssetArea">Asset Area:</label><br>
@@ -176,7 +177,7 @@
                     <button class="button" id="btnSearch" type="button">Search</button><br><br>
                     
                     <!-- Table that is built in javascript if a record exists to display the search results -->
-                    <table id="resultsTable">
+                    <table id="resultsTable" summary="Table of search results.">
                         <thead id="thead"></thead>
                         <tbody id="tbody"></tbody>
                     </table><br>
@@ -190,6 +191,5 @@
             
         <!-- Link to the javascript file -->
         <script src="js/java.js"></script>
-        
     </body>
 </html>
