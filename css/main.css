@@ -123,6 +123,7 @@ select {
   padding: 5px;
   text-transform: uppercase;
   margin: 7px 0;
+  background: white;
 } 
 
 /* Formatting for the lat/lon input fields to make the background light grey */

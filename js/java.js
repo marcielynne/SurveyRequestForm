@@ -95,6 +95,7 @@ require([
             "<br>Project SRID: " + projectSRIDInput.value
             );
         map.infoWindow.show(mp);
+        window.scrollTo(0,0);
     }
      
     // Call the showCoordinates function above when a user clicks on the resultsTable. Clear an existing point graphic and hide an info box if they are visible on the map.
